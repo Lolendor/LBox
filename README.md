@@ -9,7 +9,7 @@
 
 ---
 
-> **⚡ Quick Start**: To enable automatic app installation to LiveContainer, select its directory on your device and enable **"Auto .ipa to .app"** in LBox Settings.
+> **⚡ Quick Start**: To enable automatic app installation to LiveContainer, select its directory ("On My iPhone" > "LiveContainer") on your device and enable **"Auto .ipa to .app"** in LBox Settings.
 
 ## 📥 Download
 
