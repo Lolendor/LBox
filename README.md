@@ -69,6 +69,12 @@
 3.  Select your Development Team in the "Signing & Capabilities" tab.
 4.  Build and run on your device.
 
+## ⚠️ Known Issues
+
+*   **"App bundle not found! Unable to read LCAppInfo.plist" Error**:
+    You may encounter this error popup immediately after installing an app and trying to launch it for the first time.
+    *   **Solution**: Simply dismiss the error and tap the **Run** button again. The app should launch successfully, and this error will not appear on subsequent launches.
+
 ## 📂 File Structure
 
 *   AppData.swift: Handles repository parsing, app models, and data persistence.
