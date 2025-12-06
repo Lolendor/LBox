@@ -299,9 +299,30 @@ class DownloadManager: NSObject, ObservableObject {
         }
     }
     
-    func discardBackup(_ backup: AppBackup) {
+    func discardBackup(_ backup: AppBackup, deleteContainers: Bool = false) {
         let fileManager = FileManager.default
         let backupFolder = backupDirectory.appendingPathComponent(backup.backupPath)
+        
+        if deleteContainers {
+            let backupAppURL = backupFolder.appendingPathComponent(backup.originalInstallPath)
+            let lcInfoURL = backupAppURL.appendingPathComponent("LCAppInfo.plist")
+            
+            if fileManager.fileExists(atPath: lcInfoURL.path),
+               let data = try? Data(contentsOf: lcInfoURL),
+               let plist = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any],
+               let containers = plist["LCContainers"] as? [[String: Any]],
+               let dataAppFolder = currentDataApplicationFolder {
+                
+                for container in containers {
+                    if let folderName = container["folderName"] as? String {
+                        let folderURL = dataAppFolder.appendingPathComponent(folderName)
+                        try? fileManager.removeItem(at: folderURL)
+                        print("Deleted backup container: \(folderName)")
+                    }
+                }
+            }
+        }
+        
         try? fileManager.removeItem(at: backupFolder)
         
         if let index = pendingBackups.firstIndex(where: { $0.id == backup.id }) {

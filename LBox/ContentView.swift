@@ -53,7 +53,8 @@ struct ContentView: View {
                     }
                 }
                 Button("Cancel Update (Restore)") { downloadManager.restoreBackup(backup) }
-                Button("Delete Backup", role: .destructive) { downloadManager.discardBackup(backup) }
+                // Modified to separate delete logic to optionally delete containers
+                Button("Delete Backup", role: .destructive) { downloadManager.discardBackup(backup, deleteContainers: true) }
             } message: { backup in
                 Text("Please run '\(backup.appName)' in LiveContainer to finalize the update, and then return to LBox.\n\nIf you have already run it and the update is not detected, you can try again or restore the previous version.")
             }
