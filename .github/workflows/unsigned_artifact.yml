@@ -1,0 +1,39 @@
+name: Unsigned Build (Artifact)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main  # Замените на master, если у вас основная ветка называется так
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Unsigned Archive
+        run: |
+          xcodebuild archive \
+            -scheme "LBox" \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath ./build/App.xcarchive \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Create IPA
+        run: |
+          mkdir Payload
+          cp -r ./build/App.xcarchive/Products/Applications/*.app Payload/
+          zip -r LBox.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LBox-IPA  # Название архива, который вы скачаете с GitHub
+          path: LBox.ipa
+          retention-days: 7 # (Опционально) Сколько дней хранить файл
