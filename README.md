@@ -13,7 +13,7 @@
 
 ## 📥 Download
 
-**[Download Latest IPA (IOS 17.6+)](https://github.com/Lolendor/LBox/releases/download/build-3/LBox.ipa)**
+**[Download Latest IPA (IOS 17.6+)](https://github.com/Lolendor/LBox/releases/download/v1.2/LBox.ipa)**
 
 ## 🚀 Overview
 
